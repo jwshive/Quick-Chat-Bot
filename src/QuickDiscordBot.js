@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const DiscordMessageHandler = require('./DiscordMessageHandler');
 
 module.exports = class QuickDiscordBot {
@@ -42,7 +42,12 @@ module.exports = class QuickDiscordBot {
             );
         }
         this.config = config;
-        this.client = new Discord.Client();
+        this.client = new Client({ intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+	], });
         this.messageHandler = new DiscordMessageHandler(config);
     }
 
